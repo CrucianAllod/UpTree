@@ -1,0 +1,31 @@
+<ul class="nav">
+    {% for item, children, is_active in menu_tree %}
+        <li class="nav-item">
+            <a href="{{ item.get_url }}" class="nav-link {% if is_active %}active{% endif %}">
+                {{ item.name }}
+            </a>
+            {% if children %}
+                <ul class="nav flex-column ml-3">
+                    {% for child, sub_children, child_is_active in children %}
+                        <li class="nav-item">
+                            <a href="{{ child.get_url }}" class="nav-link {% if child_is_active %}active{% endif %}">
+                                {{ child.name }}
+                            </a>
+                            {% if sub_children %}
+                                <ul class="nav flex-column ml-3">
+                                    {% for sub_child, _, sub_child_is_active in sub_children %}
+                                        <li class="nav-item">
+                                            <a href="{{ sub_child.get_url }}" class="nav-link {% if sub_child_is_active %}active{% endif %}">
+                                                {{ sub_child.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
